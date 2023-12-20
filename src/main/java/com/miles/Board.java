@@ -4,19 +4,19 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class Board {
-    private static final int DESERT_VALUE = 0;
-    // private static final int HILLS_VALUE = 1;
-    // private static final int FOREST_VALUE = 2;
-    // private static final int MOUNTAINS_VALUE = 3;
-    // private static final int FIELDS_VALUE = 4;
-    // private static final int PASTURE_VALUE = 5;
-    private static final int NUM_TERRAIN_TYPES = 6;
-    private static final int NUM_DESERT_TILES = 1;
-    private static final int NUM_HILLS_TILES = 3;
-    private static final int NUM_FOREST_TILES = 4;
-    private static final int NUM_MOUNTAINS_TILES = 3;
-    private static final int NUM_FIELDS_TILES = 4;
-    private static final int NUM_PASTURE_TILES = 4;
+    public static final int DESERT_VALUE = 0;
+    // public static final int HILLS_VALUE = 1;
+    // public static final int FOREST_VALUE = 2;
+    // public static final int MOUNTAINS_VALUE = 3;
+    // public static final int FIELDS_VALUE = 4;
+    // public static final int PASTURE_VALUE = 5;
+    public static final int NUM_TERRAIN_TYPES = 6;
+    public static final int NUM_DESERT_TILES = 1;
+    public static final int NUM_HILLS_TILES = 3;
+    public static final int NUM_FOREST_TILES = 4;
+    public static final int NUM_MOUNTAINS_TILES = 3;
+    public static final int NUM_FIELDS_TILES = 4;
+    public static final int NUM_PASTURE_TILES = 4;
     private static final int[] TERRAIN_TILE_NUMBERS = {NUM_DESERT_TILES, NUM_HILLS_TILES, NUM_FOREST_TILES,
                                                        NUM_MOUNTAINS_TILES, NUM_FIELDS_TILES, NUM_PASTURE_TILES};
 
