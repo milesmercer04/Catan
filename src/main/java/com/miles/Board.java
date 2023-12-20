@@ -63,9 +63,10 @@ public class Board {
     }
 
     private void setTileVertices() {
-        // Calculate width of each row using board height
         int rowWidths[] = new int[BOARD_HEIGHT];
         int currRowWidth;
+
+        // Calculate width of each row using board height
 
         // Start from top and increment to maximum width
         for (int i = 0; i < BOARD_HEIGHT / 2 + 1; i++) {

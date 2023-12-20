@@ -18,4 +18,8 @@ public class TerrainHex {
         this.chitNumber = 0;
         this.vertices = new Vertex[NUM_VERTICES];
     }
+
+    public void setVertex(int index, Vertex newVertex) {
+        this.vertices[index] = newVertex;
+    }
 }
