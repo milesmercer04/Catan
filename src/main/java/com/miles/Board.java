@@ -22,6 +22,7 @@ public class Board {
 
     private final int NUM_TILES = 19;
     private final int NUM_VERTICES = 54;
+    private final int BOARD_HEIGHT = 5;
 
     private TerrainHex[] tiles;
     private Vertex[] vertices;
@@ -35,6 +36,7 @@ public class Board {
 
     public void setUpBoard() {
         this.setTileTerrainTypes();
+        this.setTileVertices();
     }
 
     private void setTileTerrainTypes() {
@@ -58,5 +60,18 @@ public class Board {
         }
 
         System.out.println(tileIndices.size());
+    }
+
+    private void setTileVertices() {
+        // Calculate width of each row using board height
+        int rowWidths[] = new int[BOARD_HEIGHT];
+        int currRowWidth;
+
+        // Start from top and increment to maximum width
+        for (int i = 0; i < BOARD_HEIGHT / 2 + 1; i++) {
+            currRowWidth = BOARD_HEIGHT / 2 + i + 1;
+            rowWidths[i] = currRowWidth;
+            rowWidths[BOARD_HEIGHT - i - 1] = currRowWidth;
+        }
     }
 }

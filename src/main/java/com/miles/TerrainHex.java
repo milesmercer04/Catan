@@ -1,7 +1,6 @@
 package com.miles;
 
 public class TerrainHex {
-
     private final int NUM_VERTICES = 6;
     
     private int terrainType;
