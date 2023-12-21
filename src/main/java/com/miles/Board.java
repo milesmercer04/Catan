@@ -35,6 +35,11 @@ public class Board {
     }
 
     public void setUpBoard() {
+        // Fill vertices array
+        for (int i = 0; i < NUM_VERTICES; i++) {
+            this.vertices[i] = new Vertex();
+        }
+
         this.setTileTerrainTypes();
         this.setTileVertices();
     }
@@ -64,7 +69,7 @@ public class Board {
 
     private void setTileVertices() {
         int rowWidths[] = new int[BOARD_HEIGHT];
-        int currRowWidth;
+        int currRowWidth, row, tile, firstUpper, firstLower, currUpper, currLower;
 
         // Calculate width of each row using board height
 
@@ -73,6 +78,69 @@ public class Board {
             currRowWidth = BOARD_HEIGHT / 2 + i + 1;
             rowWidths[i] = currRowWidth;
             rowWidths[BOARD_HEIGHT - i - 1] = currRowWidth;
+        }
+
+        // Using row widths, find vertices of each row
+        row = 0;
+        tile = 0;
+        firstUpper = 0;
+
+        while (row < BOARD_HEIGHT / 2) {
+            firstLower = firstUpper + 2 * rowWidths[row + 1];
+            currUpper = firstUpper;
+            currLower = firstLower;
+
+            for (int rowTile = 0; rowTile < rowWidths[row]; rowTile++) {
+                for (int i = 0; i < 3; i++) {
+                    this.tiles[tile].setVertex(i, this.vertices[currUpper + i]);
+                    this.tiles[tile].setVertex(i + 3, this.vertices[currLower + i]);
+                }
+
+                currUpper += 2;
+                currLower += 2;
+                tile++;
+            }
+
+            firstUpper = firstLower - 1;
+            row++;
+        }
+
+        firstLower = firstUpper + 2 * rowWidths[row] + 1;
+        currUpper = firstUpper;
+        currLower = firstLower;
+
+        for (int rowTile = 0; rowTile < rowWidths[row]; rowTile++) {
+            for (int i = 0; i < 3; i++) {
+                this.tiles[tile].setVertex(i, this.vertices[currUpper + i]);
+                this.tiles[tile].setVertex(i + 3, this.vertices[currLower + i]);
+            }
+
+            currUpper += 2;
+            currLower += 2;
+            tile++;
+        }
+
+        firstUpper = firstLower + 1;
+        row++;
+
+        while (row < BOARD_HEIGHT) {
+            firstLower = firstUpper + 2 * rowWidths[row - 1];
+            currUpper = firstUpper;
+            currLower = firstLower;
+
+            for (int rowTile = 0; rowTile < rowWidths[row]; rowTile++) {
+                for (int i = 0; i < 3; i++) {
+                    this.tiles[tile].setVertex(i, this.vertices[currUpper + i]);
+                    this.tiles[tile].setVertex(i + 3, this.vertices[currLower + i]);
+                }
+
+                currUpper += 2;
+                currLower += 2;
+                tile++;
+            }
+
+            firstUpper = firstLower + 1;
+            row++;
         }
     }
 }
