@@ -85,26 +85,32 @@ public class Board {
         tile = 0;
         firstUpper = 0;
 
+        // Find tile vertices for rows above middle row
         while (row < BOARD_HEIGHT / 2) {
+            // Find first lower vertex of for
             firstLower = firstUpper + 2 * rowWidths[row + 1];
             currUpper = firstUpper;
             currLower = firstLower;
 
+            // Iterate through tiles on row, filling in vertices
             for (int rowTile = 0; rowTile < rowWidths[row]; rowTile++) {
                 for (int i = 0; i < 3; i++) {
                     this.tiles[tile].setVertex(i, this.vertices[currUpper + i]);
                     this.tiles[tile].setVertex(i + 3, this.vertices[currLower + i]);
                 }
 
+                // Step to next tile
                 currUpper += 2;
                 currLower += 2;
                 tile++;
             }
 
+            // Set first upper vertex for next row
             firstUpper = firstLower - 1;
             row++;
         }
 
+        // Find tile vertices for middle row
         firstLower = firstUpper + 2 * rowWidths[row] + 1;
         currUpper = firstUpper;
         currLower = firstLower;
@@ -123,6 +129,7 @@ public class Board {
         firstUpper = firstLower + 1;
         row++;
 
+        // Find tile vertices for lower rows
         while (row < BOARD_HEIGHT) {
             firstLower = firstUpper + 2 * rowWidths[row - 1];
             currUpper = firstUpper;
