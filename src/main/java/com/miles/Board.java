@@ -40,6 +40,13 @@ public class Board {
             this.vertices[i] = new Vertex();
         }
 
+        // Fill ownership matrix with zeros (no owner)
+        for (int i = 0; i < NUM_VERTICES; i++) {
+            for (int j = 0; j < NUM_VERTICES; j++) {
+                this.ownershipMatrix[i][j] = 0;
+            }
+        }
+
         this.setTileTerrainTypes();
         this.setTileVertices();
     }
