@@ -76,17 +76,8 @@ public class Board {
     }
 
     private void setTileVertices() {
-        int rowWidths[] = new int[BOARD_HEIGHT];
-        int currRowWidth, row, tile, firstUpper, firstLower, currUpper, currLower;
-
-        // Calculate width of each row using board height
-
-        // Start from top and increment to maximum width
-        for (int i = 0; i < BOARD_HEIGHT / 2 + 1; i++) {
-            currRowWidth = BOARD_HEIGHT / 2 + i + 1;
-            rowWidths[i] = currRowWidth;
-            rowWidths[BOARD_HEIGHT - i - 1] = currRowWidth;
-        }
+        int rowWidths[] = this.calculateRowWidths();
+        int row, tile, firstUpper, firstLower, currUpper, currLower;
 
         // Using row widths, find vertices of each row
         row = 0;
@@ -160,24 +151,45 @@ public class Board {
     }
 
     private void setVertexNeighbors() {
-        int rowWidths[] = new int[BOARD_HEIGHT];
-        int currRowWidth, row, firstUpper, upperLowerDiff;
+        int[] rowWidths = this.calculateRowWidths();
+        int row, currVertexIndex, firstUpper, offset;
 
-        // Calculate width of each row using board height
-
-        // Start from top and increment to maximum width
-        for (int i = 0; i < BOARD_HEIGHT / 2 + 1; i++) {
-            currRowWidth = BOARD_HEIGHT / 2 + i + 1;
-            rowWidths[i] = currRowWidth;
-            rowWidths[BOARD_HEIGHT - i - 1] = currRowWidth;
-        }
-
-        // Using row widths, calculate each vertex's neighbors
         row = 0;
         firstUpper = 0;
 
-        while (row < BOARD_HEIGHT / 2) {
-            
+        while (row < this.BOARD_HEIGHT / 2) {
+            offset = 2 * rowWidths[row + 1];
+
+            for (currVertexIndex = firstUpper; currVertexIndex <= firstUpper + 2 * rowWidths[row]; currVertexIndex++) {
+                if ((currVertexIndex - firstUpper) % 2 == 0) {
+                    if (currVertexIndex > firstUpper) {
+                        this.vertices[currVertexIndex].addNeighbor(0, this.vertices[currVertexIndex - 1]);
+                    }
+
+                    if (currVertexIndex < firstUpper + 2 * rowWidths[row]) {
+                        this.vertices[currVertexIndex].addNeighbor(1, this.vertices[currVertexIndex + 1]);
+                    }
+
+                    this.vertices[currVertexIndex].addNeighbor(2, this.vertices[currVertexIndex + offset]);
+                    this.vertices[currVertexIndex + offset].addNeighbor(0, this.vertices[currVertexIndex]);
+                } else {
+                    this.vertices[currVertexIndex].addNeighbor(1, this.vertices[currVertexIndex - 1]);
+                    this.vertices[currVertexIndex].addNeighbor(2, this.vertices[currVertexIndex + 1]);
+                }
+            }
         }
+    }
+
+    private int[] calculateRowWidths() {
+        int[] rowWidths = new int[this.BOARD_HEIGHT];
+        int currRowWidth;
+
+        for (int i = 0; i < this.BOARD_HEIGHT / 2 + 1; i++) {
+            currRowWidth = BOARD_HEIGHT / 2 + i + 1;
+            rowWidths[i] = currRowWidth;
+            rowWidths[this.BOARD_HEIGHT - i - 1] = currRowWidth;
+        }
+
+        return rowWidths;
     }
 }
