@@ -177,6 +177,59 @@ public class Board {
                     this.vertices[currVertexIndex].addNeighbor(2, this.vertices[currVertexIndex + 1]);
                 }
             }
+
+            firstUpper += offset - 1;
+            row++;
+        }
+
+        offset = 2 * rowWidths[row] + 1;
+
+        for (currVertexIndex = firstUpper; currVertexIndex <= firstUpper + 2 * rowWidths[row]; currVertexIndex++) {
+            if ((currVertexIndex - firstUpper) % 2 == 0) {
+                if (currVertexIndex > firstUpper) {
+                    this.vertices[currVertexIndex].addNeighbor(0, this.vertices[currVertexIndex - 1]);
+                    this.vertices[currVertexIndex + offset].addNeighbor(1, this.vertices[currVertexIndex + offset - 1]);
+                }
+
+                if (currVertexIndex < firstUpper + 2 * rowWidths[row]) {
+                    this.vertices[currVertexIndex].addNeighbor(1, this.vertices[currVertexIndex + 1]);
+                    this.vertices[currVertexIndex + offset].addNeighbor(2, this.vertices[currVertexIndex + offset + 1]);
+                }
+
+                this.vertices[currVertexIndex].addNeighbor(2, this.vertices[currVertexIndex + offset]);
+                this.vertices[currVertexIndex + offset].addNeighbor(0, this.vertices[currVertexIndex]);
+            } else {
+                this.vertices[currVertexIndex].addNeighbor(1, this.vertices[currVertexIndex - 1]);
+                this.vertices[currVertexIndex].addNeighbor(2, this.vertices[currVertexIndex + 1]);
+            }
+        }
+
+        firstUpper += offset;
+        row++;
+
+        while (row < this.BOARD_HEIGHT) {
+            offset = 2 * rowWidths[row - 1];
+            firstUpper += offset + 1;
+
+            for (currVertexIndex = firstUpper; currVertexIndex <= firstUpper + 2 * rowWidths[row]; currVertexIndex++) {
+                if ((currVertexIndex - firstUpper) % 2 == 0) {
+                    this.vertices[currVertexIndex].addNeighbor(0, this.vertices[currVertexIndex - offset]);
+                    this.vertices[currVertexIndex - offset].addNeighbor(2, this.vertices[currVertexIndex]);
+
+                    if (currVertexIndex > firstUpper) {
+                        this.vertices[currVertexIndex].addNeighbor(1, this.vertices[currVertexIndex - 1]);
+                    }
+
+                    if (currVertexIndex < firstUpper + 2 * rowWidths[row]) {
+                        this.vertices[currVertexIndex].addNeighbor(2, this.vertices[currVertexIndex + 1]);
+                    }
+                } else {
+                    this.vertices[currVertexIndex].addNeighbor(0, this.vertices[currVertexIndex - 1]);
+                    this.vertices[currVertexIndex].addNeighbor(1, this.vertices[currVertexIndex + 1]);
+                }
+            }
+
+            row++;
         }
     }
 
