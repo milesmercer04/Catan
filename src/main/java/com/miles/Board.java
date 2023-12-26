@@ -49,6 +49,7 @@ public class Board {
 
         this.setTileTerrainTypes();
         this.setTileVertices();
+        this.setVertexNeighbors();
     }
 
     private void setTileTerrainTypes() {
@@ -94,7 +95,7 @@ public class Board {
 
         // Find tile vertices for rows above middle row
         while (row < BOARD_HEIGHT / 2) {
-            // Find first lower vertex of for
+            // Find first lower vertex of row
             firstLower = firstUpper + 2 * rowWidths[row + 1];
             currUpper = firstUpper;
             currLower = firstLower;
@@ -155,6 +156,28 @@ public class Board {
 
             firstUpper = firstLower + 1;
             row++;
+        }
+    }
+
+    private void setVertexNeighbors() {
+        int rowWidths[] = new int[BOARD_HEIGHT];
+        int currRowWidth, row, firstUpper, upperLowerDiff;
+
+        // Calculate width of each row using board height
+
+        // Start from top and increment to maximum width
+        for (int i = 0; i < BOARD_HEIGHT / 2 + 1; i++) {
+            currRowWidth = BOARD_HEIGHT / 2 + i + 1;
+            rowWidths[i] = currRowWidth;
+            rowWidths[BOARD_HEIGHT - i - 1] = currRowWidth;
+        }
+
+        // Using row widths, calculate each vertex's neighbors
+        row = 0;
+        firstUpper = 0;
+
+        while (row < BOARD_HEIGHT / 2) {
+            
         }
     }
 }
